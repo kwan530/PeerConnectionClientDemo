@@ -151,6 +151,7 @@
     <ClInclude Include="defaults.h" />
     <ClInclude Include="flag_defs.h" />
     <ClInclude Include="main_wnd.h" />
+    <ClInclude Include="MyCapturer.h" />
     <ClInclude Include="peer_connection_client.h" />
   </ItemGroup>
   <ItemGroup>
@@ -158,6 +159,7 @@
     <ClCompile Include="defaults.cc" />
     <ClCompile Include="main.cc" />
     <ClCompile Include="main_wnd.cc" />
+    <ClCompile Include="MyCapturer.cc" />
     <ClCompile Include="peer_connection_client.cc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

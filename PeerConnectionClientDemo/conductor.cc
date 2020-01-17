@@ -43,6 +43,7 @@
 #include "rtc_base/rtc_certificate_generator.h"
 #include "rtc_base/strings/json.h"
 #include "test/vcm_capturer.h"
+#include "MyCapturer.h"
 
 namespace {
 // Names used for a IceCandidate JSON object.
@@ -444,20 +445,21 @@ void Conductor::AddTracks() {
   }
   //rtc::scoped_refptr<CapturerTrackSource> video_device =
   //    CapturerTrackSource::Create();
-  ////rtc::scoped_refptr<MyCapturer> video_device = new rtc::RefCountedObject<MyCapturer>();
-  //if (video_device) {
-  //  rtc::scoped_refptr<webrtc::VideoTrackInterface> video_track_(
-  //      peer_connection_factory_->CreateVideoTrack(kVideoLabel, video_device));
-  //  main_wnd_->StartLocalRenderer(video_track_);
+  rtc::scoped_refptr<MyCapturer> video_device = new rtc::RefCountedObject<MyCapturer>();
+  if (video_device) {
+	video_device->startCapturer();
+    rtc::scoped_refptr<webrtc::VideoTrackInterface> video_track_(
+        peer_connection_factory_->CreateVideoTrack(kVideoLabel, video_device));
+    main_wnd_->StartLocalRenderer(video_track_);
 
-  //  result_or_error = peer_connection_->AddTrack(video_track_, {kStreamId});
-  //  if (!result_or_error.ok()) {
-  //    RTC_LOG(LS_ERROR) << "Failed to add video track to PeerConnection: "
-  //                      << result_or_error.error().message();
-  //  }
-  //} else {
-  //  RTC_LOG(LS_ERROR) << "OpenVideoCaptureDevice failed";
-  //}
+    result_or_error = peer_connection_->AddTrack(video_track_, {kStreamId});
+    if (!result_or_error.ok()) {
+      RTC_LOG(LS_ERROR) << "Failed to add video track to PeerConnection: "
+                        << result_or_error.error().message();
+    }
+  } else {
+    RTC_LOG(LS_ERROR) << "OpenVideoCaptureDevice failed";
+  }
 
   main_wnd_->SwitchToStreamingUI();
 }
