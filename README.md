@@ -1,2 +1,2 @@
 # PeerConnectionClientDemo
-PeerConnectionClient vs2017 Demo
+PeerConnectionClient Demo for vs2017
